@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgroVox – Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="dashboard-page">
+
+  <div class="bg-canvas">
+    <div class="soil-layer l1"></div>
+    <div class="floating-orb orb2"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <nav class="topnav">
+    <div class="brand-logo">
+      <div class="logo-mark">AV</div>
+      <span class="brand-name">AgroVox</span>
+    </div>
+    <div class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="../analyze.html">Analyze</a>
+      <a href="dashboard.html" class="active">Dashboard</a>
+      <a href="history.html">History</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="nav-status">
+      <span class="status-dot"></span>
+      <span>System Online</span>
+    </div>
+  </nav>
+
+  <div class="dashboard-wrapper">
+    <!-- Top metric cards -->
+    <div class="metrics-row" id="metricsRow">
+      <div class="metric-card" id="card-moisture">
+        <div class="metric-icon">💧</div>
+        <div class="metric-body">
+          <div class="metric-label">Moisture</div>
+          <div class="metric-value" id="val-moisture">--</div>
+          <div class="metric-unit">%</div>
+        </div>
+        <div class="metric-bar-track"><div class="metric-bar-fill" id="bar-moisture"></div></div>
+        <div class="metric-status" id="st-moisture">—</div>
+      </div>
+      <div class="metric-card" id="card-temp">
+        <div class="metric-icon">🌡️</div>
+        <div class="metric-body">
+          <div class="metric-label">Temperature</div>
+          <div class="metric-value" id="val-temp">--</div>
+          <div class="metric-unit">°C</div>
+        </div>
+        <div class="metric-bar-track"><div class="metric-bar-fill" id="bar-temp"></div></div>
+        <div class="metric-status" id="st-temp">—</div>
+      </div>
+      <div class="metric-card" id="card-ph">
+        <div class="metric-icon">⚗️</div>
+        <div class="metric-body">
+          <div class="metric-label">pH Level</div>
+          <div class="metric-value" id="val-ph">--</div>
+          <div class="metric-unit">pH</div>
+        </div>
+        <div class="metric-bar-track"><div class="metric-bar-fill" id="bar-ph"></div></div>
+        <div class="metric-status" id="st-ph">—</div>
+      </div>
+      <div class="metric-card" id="card-ec">
+        <div class="metric-icon">⚡</div>
+        <div class="metric-body">
+          <div class="metric-label">Elect. Conductivity</div>
+          <div class="metric-value" id="val-ec">--</div>
+          <div class="metric-unit">dS/m</div>
+        </div>
+        <div class="metric-bar-track"><div class="metric-bar-fill" id="bar-ec"></div></div>
+        <div class="metric-status" id="st-ec">—</div>
+      </div>
+    </div>
+
+    <!-- Charts + Recommendations grid -->
+    <div class="main-grid">
+      <!-- Radar chart -->
+      <div class="glass-card chart-block">
+        <div class="card-title-row">
+          <h2>Soil Health Radar</h2>
+          <span class="chip">Real-Time</span>
+        </div>
+        <canvas id="radarChart" height="260"></canvas>
+      </div>
+
+      <!-- Bar chart - filtered vs unfiltered -->
+      <div class="glass-card chart-block">
+        <div class="card-title-row">
+          <h2>Filtered vs Raw Signal</h2>
+          <span class="chip">MA Filter</span>
+        </div>
+        <canvas id="filterChart" height="260"></canvas>
+      </div>
+
+      <!-- Recommendations -->
+      <div class="glass-card reco-block">
+        <div class="card-title-row">
+          <h2>🤖 AI Recommendations</h2>
+          <div class="voice-controls">
+            <select id="voiceLang" class="lang-select">
+              <option value="en-US">English</option>
+              <option value="ta-IN">தமிழ்</option>
+              <option value="hi-IN">हिन्दी</option>
+              <option value="ml-IN">മലയാളം</option>
+              <option value="te-IN">తెలుగు</option>
+              <option value="ja-JP">日本語</option>
+              <option value="de-DE">Deutsch</option>
+              <option value="fr-FR">Français</option>
+            </select>
+            <button class="voice-btn" id="voiceBtn" onclick="speakRecommendations()">
+              🔊 Voice
+            </button>
+          </div>
+        </div>
+        <div class="reco-list" id="recoList">
+          <div class="reco-empty">Enter sensor data on the Analyze page to get recommendations.</div>
+        </div>
+        <div class="reco-footer">
+          <a href="../analyze.html" class="back-link">← New Analysis</a>
+          <button class="pdf-btn" onclick="generatePDF()">📄 Export PDF</button>
+        </div>
+      </div>
+
+      <!-- Soil Score gauge -->
+      <div class="glass-card score-block">
+        <div class="card-title-row">
+          <h2>Overall Soil Score</h2>
+          <span class="chip" id="scoreLabel">--</span>
+        </div>
+        <div class="score-meta">Crop: <span id="cropLabel">Generic</span></div>
+        <div class="gauge-wrap">
+          <svg class="gauge-svg" viewBox="0 0 200 120">
+            <path d="M20,100 A80,80 0 0,1 180,100" fill="none" stroke="#1e2a1a" stroke-width="18" stroke-linecap="round"/>
+            <path d="M20,100 A80,80 0 0,1 180,100" fill="none" stroke="url(#gaugeGrad)" stroke-width="18" stroke-linecap="round"
+              stroke-dasharray="251" stroke-dashoffset="251" id="gaugeFill"/>
+            <defs>
+              <linearGradient id="gaugeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#ef4444"/>
+                <stop offset="50%" style="stop-color:#f59e0b"/>
+                <stop offset="100%" style="stop-color:#22c55e"/>
+              </linearGradient>
+            </defs>
+            <text x="100" y="95" text-anchor="middle" class="gauge-num" id="gaugeNum">--</text>
+            <text x="100" y="115" text-anchor="middle" class="gauge-label">/ 100</text>
+          </svg>
+        </div>
+        <div class="score-breakdown" id="scoreBreakdown"></div>
+      </div>
+    </div>
+
+    <!-- Timeline chart -->
+    <div class="glass-card timeline-block">
+      <div class="card-title-row">
+        <h2>Simulated Field Trend (24h)</h2>
+        <span class="chip">Historical</span>
+      </div>
+      <canvas id="trendChart" height="120"></canvas>
+    </div>
+  </div>
+
+  <script src="../js/app.js"></script>
+  <script src="../js/dashboard.js"></script>
+</body>
+</html>

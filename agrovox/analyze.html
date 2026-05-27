@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgroVox Smart Probe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="landing-page">
+
+  <!-- Animated background -->
+  <div class="bg-canvas">
+    <div class="soil-layer l1"></div>
+    <div class="soil-layer l2"></div>
+    <div class="soil-layer l3"></div>
+    <div class="floating-orb orb1"></div>
+    <div class="floating-orb orb2"></div>
+    <div class="floating-orb orb3"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <!-- Nav -->
+  <nav class="topnav">
+    <div class="brand-logo">
+      <div class="logo-mark">AV</div>
+      <span class="brand-name">AgroVox</span>
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="analyze.html" class="active">Analyze</a>
+      <a href="pages/dashboard.html">Dashboard</a>
+      <a href="pages/history.html">History</a>
+      <a href="pages/about.html">About</a>
+    </div>
+    <div class="nav-status">
+      <span class="status-dot"></span>
+      <span>System Online</span>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <main class="hero-section">
+    <div class="hero-left">
+      <div class="hero-tag">AI-Assisted Soil Analysis</div>
+      <h1 class="hero-title">
+        Know your <em>soil.</em><br/>
+        Feed the world.
+      </h1>
+      <p class="hero-desc">
+        AgroVox Smart Probe uses real-time sensor data, moving-average filtering,
+        and a rule-based AI engine to deliver precise farming recommendations —
+        instantly, even offline.
+      </p>
+      <div class="hero-stats">
+        <div class="stat-pill"><span class="stat-num">4</span><span>Sensors</span></div>
+        <div class="stat-pill"><span class="stat-num">MA</span><span>Filter</span></div>
+        <div class="stat-pill"><span class="stat-num">AI</span><span>Decisions</span></div>
+        <div class="stat-pill"><span class="stat-num">☀️</span><span>Solar</span></div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="probe-card">
+        <div class="probe-card-header">
+          <div class="probe-icon">🌱</div>
+          <div>
+            <div class="probe-title">Soil Analysis Input</div>
+            <div class="probe-sub">Enter real-time sensor readings</div>
+          </div>
+        </div>
+
+        <form class="sensor-form" id="sensorForm">
+          <div class="input-row">
+            <div class="input-group">
+              <label>
+                <span class="param-icon">💧</span>
+                Moisture (%)
+              </label>
+              <input type="number" id="moisture" placeholder="e.g. 45" min="0" max="100" step="0.1" required />
+              <div class="range-hint">Optimal: 30–70%</div>
+            </div>
+            <div class="input-group">
+              <label>
+                <span class="param-icon">🌡️</span>
+                Temperature (°C)
+              </label>
+              <input type="number" id="temp" placeholder="e.g. 28" min="0" max="60" step="0.1" required />
+              <div class="range-hint">Optimal: 15–35°C</div>
+            </div>
+          </div>
+          <div class="input-row">
+            <div class="input-group">
+              <label>
+                <span class="param-icon">⚗️</span>
+                pH Value
+              </label>
+              <input type="number" id="ph" placeholder="e.g. 6.8" min="0" max="14" step="0.1" required />
+              <div class="range-hint">Optimal: 6.0–8.0</div>
+            </div>
+            <div class="input-group">
+              <label>
+                <span class="param-icon">⚡</span>
+                EC (dS/m)
+              </label>
+              <input type="number" id="ec" placeholder="e.g. 1.2" min="0" max="10" step="0.01" required />
+              <div class="range-hint">Optimal: ≥1.0 dS/m</div>
+            </div>
+          </div>
+
+          <div class="input-row">
+            <div class="input-group full-width">
+              <label>
+                <span class="param-icon">🌾</span>
+                Crop Type
+              </label>
+              <select id="crop" required>
+                <option value="">Select crop</option>
+                <option>Wheat</option>
+                <option>Rice</option>
+                <option>Maize</option>
+                <option>Vegetables</option>
+                <option>Fruit Trees</option>
+              </select>
+              <div class="range-hint">Crop-specific guidance improves analysis quality.</div>
+            </div>
+          </div>
+
+          <!-- MA Filter Visualizer -->
+          <div class="ma-section">
+            <div class="ma-label">
+              <span>Moving Average Filter</span>
+              <span class="ma-badge">ACTIVE</span>
+            </div>
+            <div class="ma-bars" id="maBars">
+              <div class="ma-bar" style="height:40%"></div>
+              <div class="ma-bar" style="height:55%"></div>
+              <div class="ma-bar" style="height:35%"></div>
+              <div class="ma-bar" style="height:70%"></div>
+              <div class="ma-bar active" style="height:60%"></div>
+            </div>
+            <div class="ma-desc">Noise reduction via 5-point window averaging</div>
+          </div>
+
+          <button type="button" class="analyze-btn" onclick="analyzeAndGo()">
+            <span class="btn-icon">🔬</span>
+            Analyze Soil Now
+            <span class="btn-arrow">→</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- Feature strip -->
+  <section class="feature-strip">
+    <div class="feature-item">
+      <div class="feat-icon">📡</div>
+      <div class="feat-text">
+        <strong>Real-Time Monitoring</strong>
+        <span>Moisture, Temp, pH, EC — continuously</span>
+      </div>
+    </div>
+    <div class="feat-divider"></div>
+    <div class="feature-item">
+      <div class="feat-icon">🧠</div>
+      <div class="feat-text">
+        <strong>Rule-Based AI Engine</strong>
+        <span>Agronomic threshold decision logic</span>
+      </div>
+    </div>
+    <div class="feat-divider"></div>
+    <div class="feature-item">
+      <div class="feat-icon">🔊</div>
+      <div class="feat-text">
+        <strong>Voice Advisory</strong>
+        <span>Recommendations in local language</span>
+      </div>
+    </div>
+    <div class="feat-divider"></div>
+    <div class="feature-item">
+      <div class="feat-icon">☁️</div>
+      <div class="feat-text">
+        <strong>IoT Cloud Sync</strong>
+        <span>Historical trend analysis via cloud</span>
+      </div>
+    </div>
+  </section>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

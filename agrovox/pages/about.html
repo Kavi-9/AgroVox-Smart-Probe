@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgroVox – About</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body class="about-page">
+
+  <div class="bg-canvas">
+    <div class="soil-layer l1"></div>
+    <div class="floating-orb orb1"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <nav class="topnav">
+    <div class="brand-logo">
+      <div class="logo-mark">AV</div>
+      <span class="brand-name">AgroVox</span>
+    </div>
+    <div class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="../analyze.html">Analyze</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="history.html">History</a>
+      <a href="about.html" class="active">About</a>
+    </div>
+    <div class="nav-status">
+      <span class="status-dot"></span>
+      <span>System Online</span>
+    </div>
+  </nav>
+
+  <div class="about-wrapper">
+
+    <!-- Hero -->
+    <div class="about-hero">
+      <div class="about-logo-big">AV</div>
+      <h1>AgroVox Smart Probe</h1>
+      <p class="about-tagline">AI-Assisted Soil Analysis & Precision Farming Device</p>
+      <div class="college-tag">M. Kumarasamy College of Engineering · CSBS Dept · 2025–2026</div>
+    </div>
+
+    <!-- Abstract -->
+    <div class="glass-card about-section">
+      <h2>📋 Abstract</h2>
+      <p>Agriculture is an important sector supporting livelihoods in rural areas. Traditional soil testing methods are slow and rely on laboratory analysis, delaying decision-making. AgroVox Smart Probe is an intelligent soil analysis system providing real-time field-level insights with simple voice-based decision support — accessible even without smartphones or internet.</p>
+    </div>
+
+    <!-- System Architecture -->
+    <div class="glass-card about-section">
+      <h2>🏗️ System Architecture</h2>
+      <div class="arch-flow">
+        <div class="arch-box sensors">
+          <div class="arch-icon">📡</div>
+          <strong>Sensors</strong>
+          <ul>
+            <li>Soil Moisture</li>
+            <li>Temperature (DS18B20)</li>
+            <li>pH Sensor</li>
+            <li>EC Sensor</li>
+          </ul>
+        </div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-box mcu">
+          <div class="arch-icon">🔲</div>
+          <strong>ESP32 MCU</strong>
+          <ul>
+            <li>Data Acquisition</li>
+            <li>MA Filtering</li>
+            <li>Edge AI Logic</li>
+          </ul>
+        </div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-box decision">
+          <div class="arch-icon">🧠</div>
+          <strong>Rule-Based AI</strong>
+          <ul>
+            <li>Threshold Analysis</li>
+            <li>Recommendations</li>
+            <li>Irrigation/Fertilizer</li>
+          </ul>
+        </div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-box output">
+          <div class="arch-icon">🔊</div>
+          <strong>Output</strong>
+          <ul>
+            <li>Voice (DFPlayer)</li>
+            <li>Web Dashboard</li>
+            <li>Cloud Sync (IoT)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sensors & Parameters -->
+    <div class="glass-card about-section">
+      <h2>🔬 Evaluation Parameters</h2>
+      <div class="params-grid">
+        <div class="param-box">
+          <div class="param-icon">💧</div>
+          <div class="param-name">Soil Moisture</div>
+          <div class="param-range">Optimal: 30–70%</div>
+          <div class="param-desc">Measures water content in soil. Below 30% triggers irrigation. Above 70% signals over-watering.</div>
+        </div>
+        <div class="param-box">
+          <div class="param-icon">🌡️</div>
+          <div class="param-name">Temperature</div>
+          <div class="param-range">Optimal: 15–35°C</div>
+          <div class="param-desc">Monitors soil thermal conditions. High temps above 35°C require increased watering frequency.</div>
+        </div>
+        <div class="param-box">
+          <div class="param-icon">⚗️</div>
+          <div class="param-name">pH Level</div>
+          <div class="param-range">Optimal: 6.0–8.0</div>
+          <div class="param-desc">Acidic soils (pH&lt;6) need lime. Alkaline soils (pH&gt;8) need organic compost to balance.</div>
+        </div>
+        <div class="param-box">
+          <div class="param-icon">⚡</div>
+          <div class="param-name">Electrical Conductivity</div>
+          <div class="param-range">Optimal: ≥1.0 dS/m</div>
+          <div class="param-desc">Estimates salinity and nutrient levels. Low EC indicates nutrient deficiency requiring fertilization.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MA Filtering -->
+    <div class="glass-card about-section">
+      <h2>📈 Moving Average Filter</h2>
+      <div class="ma-explain">
+        <div class="ma-formula">
+          <div class="formula-label">Formula</div>
+          <div class="formula-text">MA(t) = [x(t) + x(t-1) + x(t-2) + x(t-3) + x(t-4)] / 5</div>
+        </div>
+        <p>The system uses a 5-point moving average filter to eliminate sensor noise and environmental fluctuations. This ensures stable readings are fed into the decision engine, minimizing false alerts and improving recommendation accuracy. The filter operates in real-time on the ESP32 microcontroller with minimal processing overhead.</p>
+      </div>
+    </div>
+
+    <!-- Comparison table -->
+    <div class="glass-card about-section">
+      <h2>📊 System Comparison</h2>
+      <div class="table-wrap">
+        <table class="data-table comparison-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Traditional Methods</th>
+              <th>Basic IoT Systems</th>
+              <th class="highlight-col">AgroVox (Proposed)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Data Availability</td><td>Periodic lab testing</td><td>Basic sensing</td><td class="highlight-col">✅ Continuous real-time</td></tr>
+            <tr><td>Decision Support</td><td>External expert needed</td><td>None</td><td class="highlight-col">✅ Integrated AI engine</td></tr>
+            <tr><td>Voice Output</td><td>❌</td><td>❌</td><td class="highlight-col">✅ Local language voice</td></tr>
+            <tr><td>Offline Operation</td><td>❌</td><td>Partial</td><td class="highlight-col">✅ Full edge AI</td></tr>
+            <tr><td>Cost Efficiency</td><td>Repeated lab costs</td><td>Moderate</td><td class="highlight-col">✅ One-time install</td></tr>
+            <tr><td>Solar Powered</td><td>❌</td><td>❌</td><td class="highlight-col">✅ Solar + battery</td></tr>
+            <tr><td>Noise Filtering</td><td>❌</td><td>❌</td><td class="highlight-col">✅ Moving average</td></tr>
+            <tr><td>IoT Cloud Sync</td><td>❌</td><td>Partial</td><td class="highlight-col">✅ Optional cloud</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Hardware -->
+    <div class="glass-card about-section">
+      <h2>🔧 Hardware Components</h2>
+      <div class="hw-list">
+        <div class="hw-item"><span class="hw-chip">MCU</span> ESP32 Microcontroller — central processing unit</div>
+        <div class="hw-item"><span class="hw-chip">Sensor</span> Soil Moisture Sensor — capacitive water content measurement</div>
+        <div class="hw-item"><span class="hw-chip">Sensor</span> DS18B20 Temperature Sensor — digital thermal monitoring</div>
+        <div class="hw-item"><span class="hw-chip">Sensor</span> Soil pH Sensor — acidity/alkalinity detection</div>
+        <div class="hw-item"><span class="hw-chip">Sensor</span> EC Sensor — electrical conductivity & salinity</div>
+        <div class="hw-item"><span class="hw-chip">Audio</span> DFPlayer Mini + Speaker — voice advisory output</div>
+        <div class="hw-item"><span class="hw-chip">Power</span> Li-Ion Battery + TP4056 + Solar Panel — sustainable energy</div>
+        <div class="hw-item"><span class="hw-chip">Housing</span> Weather-resistant soil-insertable probe casing</div>
+      </div>
+    </div>
+
+    <!-- Team -->
+    <div class="glass-card about-section">
+      <h2>👥 Project Team</h2>
+      <div class="team-grid">
+        <div class="team-card"><div class="team-av">AP</div><strong>Abinaya P</strong><span>927623BCB001</span></div>
+        <div class="team-card"><div class="team-av">AM</div><strong>Anitha Mary A</strong><span>927623BCB002</span></div>
+        <div class="team-card"><div class="team-av">KG</div><strong>Kalpana G</strong><span>927623BCB018</span></div>
+        <div class="team-card"><div class="team-av">KS</div><strong>Kavipriya S</strong><span>927622BCB021</span></div>
+      </div>
+      <div class="guide-row">
+        <div><strong>Supervisor:</strong> Mr. A. Durai Murugan M.E. — Associate Professor, CSBS</div>
+        <div><strong>HOD:</strong> Dr. V. Banupriya M.E., Ph.D. — Associate Professor & Head, CSBS</div>
+      </div>
+    </div>
+
+    <!-- SDG -->
+    <div class="glass-card about-section sdg-card">
+      <h2>🌍 UN SDG Alignment</h2>
+      <div class="sdg-content">
+        <div class="sdg-badge">SDG 2</div>
+        <div>
+          <strong>Zero Hunger</strong>
+          <p>AgroVox supports sustainable agriculture by enabling efficient soil monitoring, improving crop productivity, and ensuring better resource utilization for food production.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="../js/app.js"></script>
+</body>
+</html>
